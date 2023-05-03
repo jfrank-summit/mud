@@ -336,7 +336,7 @@ export async function deploy(mudConfig: MUDConfig, deployConfig: DeployConfig): 
         maxFeePerGas,
       });
       promises.push(deployPromise);
-      const { address } = await deployPromise;
+      const { address } = await deployPromise.then((contract) => contract.deployed());
 
       console.log(chalk.green("Deployed", contractName, "to", address));
       return address;
