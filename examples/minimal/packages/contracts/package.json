@@ -7,6 +7,7 @@
     "build": "forge clean && forge build",
     "deploy": "pnpm run initialize && mud deploy-v2",
     "deploy:testnet": "pnpm run initialize && mud deploy-v2 --profile=lattice-testnet",
+    "deploy:core-evm": "pnpm run initialize && mud deploy-v2 --profile=core-evm",
     "dev": "pnpm run deploy",
     "devnode": "mud devnode",
     "initialize": "pnpm run tablegen && pnpm run worldgen && pnpm run build && pnpm run worldtypes && pnpm run tsgen",
