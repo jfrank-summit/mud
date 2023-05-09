@@ -2,8 +2,10 @@ import { SetupContractConfig, getBurnerWallet } from "@latticexyz/std-client";
 
 import latticeTestnet from "./supportedChains/latticeTestnet";
 import latestLatticeTestnetDeploy from "contracts/deploys/4242/latest.json";
+import latestCoreEvmDeploy from "contracts/deploys/1003/latest.json";
 import localhost from "./supportedChains/localhost";
 import latestLocalhostDeploy from "contracts/deploys/31337/latest.json";
+import coreEvm from "./supportedChains/core-evm";
 
 type NetworkConfig = SetupContractConfig & {
   privateKey: string;
@@ -13,8 +15,8 @@ type NetworkConfig = SetupContractConfig & {
 export async function getNetworkConfig(): Promise<NetworkConfig> {
   const params = new URLSearchParams(window.location.search);
 
-  const supportedChains = [localhost, latticeTestnet];
-  const deploys = [latestLocalhostDeploy, latestLatticeTestnetDeploy];
+  const supportedChains = [localhost, latticeTestnet, coreEvm];
+  const deploys = [latestLocalhostDeploy, latestLatticeTestnetDeploy, latestCoreEvmDeploy];
 
   const chainId = Number(params.get("chainId") || import.meta.env.VITE_CHAIN_ID);
   const chainIndex = supportedChains.findIndex((c) => c.id === chainId);
@@ -33,6 +35,9 @@ export async function getNetworkConfig(): Promise<NetworkConfig> {
     throw new Error("No world address provided");
   }
 
+  const privateKey = params.get("privateKey") || getBurnerWallet().value;
+  console.log("privateKey", privateKey);
+
   return {
     clock: {
       period: 1000,
@@ -44,7 +49,7 @@ export async function getNetworkConfig(): Promise<NetworkConfig> {
       jsonRpcUrl: params.get("rpc") ?? chain.rpcUrls.default.http[0],
       wsRpcUrl: params.get("wsRpc") ?? chain.rpcUrls.default.webSocket?.[0],
     },
-    privateKey: getBurnerWallet().value,
+    privateKey: privateKey,
     chainId,
     modeUrl: params.get("mode") ?? chain.modeUrl,
     faucetServiceUrl: params.get("faucet") ?? chain.faucetUrl,

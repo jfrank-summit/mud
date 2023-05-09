@@ -2,7 +2,7 @@ import { SetupContractConfig, getBurnerWallet } from "@latticexyz/std-client";
 
 import latticeTestnet from "./supportedChains/latticeTestnet";
 import latestLatticeTestnetDeploy from "contracts/deploys/4242/latest.json";
-import latestCoreEvmDeploy from "contracts/deploys/1000/latest.json";
+import latestCoreEvmDeploy from "contracts/deploys/1003/latest.json";
 import localhost from "./supportedChains/localhost";
 import latestLocalhostDeploy from "contracts/deploys/31337/latest.json";
 import coreEvm from "./supportedChains/core-evm";
